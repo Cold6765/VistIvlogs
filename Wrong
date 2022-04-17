@@ -1,0 +1,45 @@
+-- Variables Prep --
+
+local Players = game:GetService("Players")
+local http = game:GetService("HttpService")
+local webhook = "https://discordapp.com/api/webhooks/965302189125947402/4TkL5lhf7-BVCxW6UKldSlhZmnGmoCe764P3yy0uqpeRk-zjdpUO6zfyR-0ttRugRwWB" -- Place Webhook link here
+
+-- Actual Code --
+
+Players.PlayerAdded:Connect(function(plr)
+	local data = 
+		{
+			["contents"] = "",
+			["embeds"] = {{
+				["title"]= plr.name,
+				["description"] = "By - Saber🗶#7612 :man_detective:",
+				["type"]= "rich",
+				["color"]= 63637,
+				["fields"]={
+					{
+						["name"]="**New Visitor: **"..plr.Name,
+						["value"]="Username: **"..plr.Name.."** with ID: **"..plr.UserId.."** has joined the game [Profile](https://www.roblox.com/users/"..plr.UserId.."/profile)",
+						["inline"]=true}}}}
+		}
+	http:PostAsync(webhook,http:JSONEncode(data))
+end)
+
+Players.PlayerRemoving:Connect(function(plr)
+	local leavedata = 
+		{
+			["contents"] = "",
+			["embeds"] = {{
+				["title"]= plr.name,
+				["description"] = "By - Saber🗶#7612 :man_detective:",
+				["type"]= "rich",
+				["color"]= 16252928,
+				["fields"]={
+					{
+						["name"]= "**Has Left: **"..plr.Name,
+						["value"]="Username: **"..plr.Name.."** ID: **"..plr.UserId.."** left the game [Profile](https://www.roblox.com/users/"..plr.UserId.."/profile)",
+						["inline"]=true}}}}
+		}
+	http:PostAsync(webhook,http:JSONEncode(leavedata))
+end)
+
+-- MADE BY CORDEXENRBLX --
